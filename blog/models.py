@@ -1,10 +1,12 @@
 from datetime import time
 from django.db import models
 from django.db.models.deletion import CASCADE
+from django.db.models.fields import BooleanField, CharField
 from django.db.models.fields.related import ForeignKey
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 # Create your models here.
 
@@ -38,3 +40,15 @@ class Post(models.Model):
     # class Meta:
     #     ordering = ('publish',)
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=CASCADE,related_name="comments")
+    name = models.CharField(_("نام"), max_length=50)
+    body = models.TextField
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('created',)
+    def __str__(self):
+        return f'comment by {self.name} on {self.post}'
