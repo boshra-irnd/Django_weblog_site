@@ -1,0 +1,28 @@
+{% extends 'blog/base.html'%}
+{% block content %}
+
+<ul>
+    {% for post in posts %}
+    <div class="list-group">
+    <a href="{{post.get_absolute_url}}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{post.title}}</h5>
+          <small class="text-muted">3 days ago</small>
+        </div>
+        <p class="mb-1">{{post.author}}</p>
+        <small class="text-muted">{{post.created}}</small>
+      </a>
+    </div>
+    {% endfor %}
+</ul>
+
+<nav aria-label="...">
+    <ul class="pagination pagination-lg">
+      <li class="page-item active" aria-current="page">
+        <span class="page-link">1</span>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+    </ul>
+  </nav>
+{% endblock content %}
