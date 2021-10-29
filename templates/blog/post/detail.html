@@ -29,7 +29,9 @@
             <br/>
         {% endfor %}
     </div>
-    <p>
-        Tags: {{post.tags.all|join:' , '}}
+    <p>Tags: 
+        {% for tag in post.tags.all %}
+            <a href="{% url 'blog:post_list' tag.slug %}">{{tag.name}}</a> -
+        {% endfor %}
     </p>
 {% endblock content %}
