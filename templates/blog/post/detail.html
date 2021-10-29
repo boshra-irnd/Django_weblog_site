@@ -28,6 +28,16 @@
             <hr>
             <br/>
         {% endfor %}
+
+        <div class="row my_3">
+<h3>Similar Posts</h3>
+<div class="col">
+    {% for post in s_posts %}
+    <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+    <hr/>
+    {% endfor %}
+</div>
+        </div>
     </div>
     <p>Tags: 
         {% for tag in post.tags.all %}
