@@ -29,4 +29,7 @@
             <br/>
         {% endfor %}
     </div>
+    <p>
+        Tags: {{post.tags.all|join:' , '}}
+    </p>
 {% endblock content %}

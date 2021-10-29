@@ -1,5 +1,6 @@
 from datetime import time
 from django.db import models
+from django.db.models import manager
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import BooleanField, CharField, EmailField
 from django.db.models.fields.related import ForeignKey
@@ -7,6 +8,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -30,6 +32,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10,choices=STATUS,default='draft')
     objects = models.Manager()
     published = PublishedManager()
+    tags = TaggableManager()
     
     def get_absolute_url(self):
         return reverse("blog:post_detail",args=[self.publish.year,self.publish.month,self.publish.day,self.slug])
