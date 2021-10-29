@@ -4,6 +4,18 @@
 <h6>author:{{post.author}} at {{post.created}}</h6>
 <hr>
 <p>{{post.body}}</p>
+<div class="mb-3">
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+      {{field.errors}}
+      {{field.label_tag}}
+      {{field}}
+      <br>
+    {% endfor %}
+        <!-- {{form.as_p}} -->
+    <input type="submit" value="Set Comment">
+    </form>
 <p>
     <a href="{% url 'blog:post_share' post.id %}">Share</a>
 </p>
