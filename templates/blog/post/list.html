@@ -1,5 +1,9 @@
 {% extends 'blog/base.html'%}
+{% load blog_tags %}
 {% block content %}
+
+
+<h3>we have {% total_posts %} published posts</h3>
 {% if tag %}
 <h3>posts with tag {{tag}}</h3>
 {% else %}
@@ -11,53 +15,41 @@
     <a href="{{post.get_absolute_url}}" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{post.title}}</h5>
-          <small class="text-muted">3 days ago</small>
+          <small class="text-muted">{{post.created}}</small>
         </div>
         <p class="mb-1">{{post.author}}</p>
-        <small class="text-muted">{{post.created}}</small>
+        <!-- <small class="text-muted">{{post.tags}}</small> -->
       </a>
     </div>
     {% endfor %}
 </ul>
 
 <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item">
-          {% if page_obj.has_previous %}
-        <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        <a class="page-link" href="?page=1" aria-label="Previous">
-          <span aria-hidden="true">first</span>
-            {% endif %}
-        </a>
-      </li>
-      {% for page in page_obj.paginator.page_range %}
-      <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
-      {% endfor %}
-      <li class="page-item">
-
-        {% if page_obj.has_next %}
-        <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        <a class="page-link" href="?page={{page_obj.paginator.num_pages}}" aria-label="Next">
-          <span aria-hidden="true">Last</span>
+  <ul class="pagination">
+    <li class="page-item">
+        {% if posts.has_previous %}
+      <a class="page-link" href="?page={{posts.previous_page_number}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      <a class="page-link" href="?page=1" aria-label="Previous">
+        <span aria-hidden="true">first</span>
           {% endif %}
-        </a>
-      </li>
-    </ul>
-  </nav>
+      </a>
+    </li>
+    {% for page in posts.paginator.page_range %}
+    <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+    {% endfor %}
+    <li class="page-item">
 
-<!-- 
-<nav aria-label="...">
-    <ul class="pagination pagination-lg">
-        <li class="page-item active" aria-current="page" href="?page={{page}}">
-        <span class="page-link">1</span>
-      </li>
-        {% for page in posts.paginator.page_range %}
-        <li class="page-item"><a class="page-link" href="?page={{page}}">2</a></li>
-      {% endfor %}
-      
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-    </ul>
-  </nav> -->
+      {% if posts.has_next %}
+      <a class="page-link" href="?page={{posts.next_page_number}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      <a class="page-link" href="?page={{posts.paginator.num_pages}}" aria-label="Next">
+        <span aria-hidden="true">Last</span>
+        {% endif %}
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
 {% endblock content %}
