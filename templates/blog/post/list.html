@@ -21,7 +21,7 @@
           <small class="text-muted">{{post.created}}</small>
         </div>
         <p class="mb-1">{{post.author}}</p>
-        <!-- <small class="text-muted">{{post.tags}}</small> -->
+        <small class="text-muted">{{post.body|slice:":30"}} . . . </small>
       </a>
     </div>
     {% endfor %}
