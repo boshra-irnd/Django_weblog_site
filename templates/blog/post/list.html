@@ -4,6 +4,9 @@
 
 
 <h3>we have {% total_posts %} published posts</h3>
+<h3>Latest Posts:</h3>
+{% show_latest_posts 3 %}
+
 {% if tag %}
 <h3>posts with tag {{tag}}</h3>
 {% else %}
