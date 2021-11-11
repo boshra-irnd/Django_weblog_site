@@ -1,17 +1,21 @@
 from django import forms
+from django.contrib.postgres import search
 from django.core import paginator
 from django.db.models import query
+from django.db.models.fields import AutoField
 from django.db.models.query_utils import PathInfo
 from django.shortcuts import render , get_object_or_404
 from .models import Post , Comment
+from .models import Post , Comment 
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView
 from .forms import EmailPostForm , CommentForm
+from .forms import EmailPostForm , CommentForm, SearchForm
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from taggit.models import Tag
 from django.db.models import Count
-
+from django.contrib.postgres.search import SearchVector
 # Create your views here.
 
 
@@ -86,3 +90,14 @@ def post_share(request,post_id):
     return render(request,'blog/post/share.html',{'post':post,'form':form})
 
 
+#search view
+def post_search(request):
+    form = SearchForm()
+    query = None
+    resault = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            resaults = Post.published.annotate(search = SearchVector('title','body')).filter(search=query)   
+    return render(request, 'blog/post/search.html',{'form':form,'query':query,'resaults':resaults}) 
