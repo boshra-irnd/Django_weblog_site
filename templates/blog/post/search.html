@@ -11,10 +11,10 @@
       {% endwith %}
 </h3>
 {% for resault in resaults %}
-<h1>
-    <a href="{{resault.get_absolute_url}}">{{resault.title}}</a>
+<h3>
+    <a href="{{resault.get_absolute_url}}">{{resault.title}}</a></h3>
     <p>{{resault.body}}</p>
-</h1>
+
 {% endfor %}
 {% endif %}
 <h1>Search Form</h1>
