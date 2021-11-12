@@ -13,7 +13,7 @@
 {% for resault in resaults %}
 <h3>
     <a href="{{resault.get_absolute_url}}">{{resault.title}}</a></h3>
-    <p>{{resault.body}}</p>
+    <p>{{resault.body|slice:":30"}}</p>
 
 {% endfor %}
 {% endif %}
